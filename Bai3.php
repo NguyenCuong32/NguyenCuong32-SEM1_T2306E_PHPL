@@ -30,4 +30,12 @@ class Rectangle extends Shape {
         return $this->length * $this->width;
     }
 }
+
+// Sử dụng
+$triangle = new Triangle(3, 4);
+echo "Diện tích của tam giác: " . $triangle->calculateArea(); // Kết quả: 6
+echo "<br>";
+
+$rectangle = new Rectangle(5, 6);
+echo "Diện tích của hình chữ nhật: " . $rectangle->calculateArea(); // Kết quả: 30
 ?>
