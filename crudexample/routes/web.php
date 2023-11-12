@@ -16,12 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('users/create',[App\Http\Controllers\UserController::class, 'create']);
-Route::post('users/create',[App\Http\Controllers\UserController::class, 'store']);
+Route::get('user/create', function () {
+    return view('users.user');
+});
+Route::post('user/create', [App\Http\Controllers\UserController::class, 'store']);
+Route::get('user/index', [App\Http\Controllers\UserController::class,'index']);
+Route::get('user/update/{id}', [App\Http\Controllers\UserController::class,'edit']);
 
-Route::get('users/index',[App\Http\Controllers\UserController::class,'index']);
-
-Route::get('users/update/{id}',[App\Http\Controllers\UserController::class,'edit']);
-Route::post('users/update/{id}',[App\Http\Controllers\UserController::class,'update']);
-
-Route::delete('users/delete/{id}',[App\Http\Controllers\UserController::class,'delete']);
+Route::post('user/update/{id}', [App\Http\Controllers\UserController::class,'update']);
+// Route::get('users/create',[App\Http\Controllers\UserController::class, 'create']);
+// Route::post('users/create',[App\Http\Controllers\UserController::class, 'save']);

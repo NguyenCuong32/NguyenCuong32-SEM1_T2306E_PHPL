@@ -4,47 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index(){
-        $users = User::all();
-        return view("users.read",compact("users"));
+        $users1 = User::all();
+        return view('users.index',compact("users1"));
     }
-    public function create()
-    {
+    public function create(){
         return view("users.create");
     }
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        echo "Begin store to database";
         $data = $request->all();
-        $data['password'] = Hash::make($request->password);
-        $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email',
-            'password'=> 'required',
-        ]);
+        // echo $request->name; 
+        $data['name']= $request->name;
+        $data['email']= $request->email;
+        $data['password']= bcrypt($request->password);
         User::create($data);
-        return redirect()->action([UserController::class,'index']);
-        // echo "Create new user success";
+       return redirect('user/index')->with('success','');
+        // return redirect("");
     }
     public function edit($id){
         $user = User::find($id);
         return view("users.edit",compact("user"));
     }
     public function update(Request $request, $id){
-        $user = User::findOrFail($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
-        // User::updated($user);
-       return redirect()->action([UserController::class,'index']);
-    }
-    public function delete($id){
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->action([UserController::class,'index']);
+      $user = User::find($id);
+      $user->name=$request->name;
+      $user->email=$request->email;
+      $user->password=bcrypt($request->password);
+      $user->save();
+      return redirect('user/index');
+
     }
 }
