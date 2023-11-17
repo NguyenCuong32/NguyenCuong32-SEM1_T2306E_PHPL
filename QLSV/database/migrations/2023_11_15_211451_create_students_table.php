@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users_table_test', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('studentname');
+            $table->integer('studentage');
+            $table->string('address');
+            $table->timestamps();   // xóa cột nhập giá trị
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_table_test');
+        Schema::dropIfExists('students');
     }
 };
